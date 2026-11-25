@@ -1,4 +1,26 @@
-// "OR CONTINUE WITH" divider + Apple / Google buttons. UI only for now.
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useAuth } from '../hooks/useAuth'
+import { startGoogleChallenge } from '../services/authService'
+
+const GOOGLE_SCRIPT_URL = 'https://accounts.google.com/gsi/client'
+
+function loadGoogleIdentity() {
+  if (window.google?.accounts?.id) return Promise.resolve(window.google)
+
+  return new Promise((resolve, reject) => {
+    let script = document.querySelector(`script[src="${GOOGLE_SCRIPT_URL}"]`)
+    if (!script) {
+      script = document.createElement('script')
+      script.src = GOOGLE_SCRIPT_URL
+      script.async = true
+      script.defer = true
+      document.head.appendChild(script)
+    }
+    script.addEventListener('load', () => resolve(window.google), { once: true })
+    script.addEventListener('error', () => reject(new Error('Google sign-in could not be loaded. Please try again.')), { once: true })
+  })
+}
+
 function AppleIcon() {
   return (
     <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true">
@@ -21,9 +43,76 @@ function GoogleIcon() {
 const buttonClass =
   'flex h-[32.67px] w-full items-center justify-center gap-2 rounded-[9.33px] border border-[#E2E8F0]/80 bg-[#F8FAFC] px-3 text-[10px] font-medium text-slate-800 transition hover:bg-slate-100'
 
+async function prepareGoogleButton(google, container, fallbackClientId, callback) {
+  const challenge = await startGoogleChallenge()
+  google.accounts.id.initialize({
+    client_id: challenge.clientId || fallbackClientId,
+    nonce: challenge.nonce,
+    callback,
+    auto_select: false,
+  })
+  container.replaceChildren()
+  google.accounts.id.renderButton(container, {
+    type: 'standard',
+    theme: 'outline',
+    size: 'medium',
+    text: 'signin_with',
+    shape: 'rectangular',
+    width: container.clientWidth,
+  })
+}
+
 export default function SocialLogin() {
-  // TODO: connect real Apple / Google sign-in here later
-  const handleSocial = (provider) => console.log(`TODO: sign in with ${provider}`)
+  const googleIdentity = useRef(null)
+  const googleButton = useRef(null)
+  const { loginWithGoogle } = useAuth()
+  const [googleError, setGoogleError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [googleReady, setGoogleReady] = useState(false)
+
+  const handleGoogleCredential = useCallback(async ({ credential }) => {
+    if (!credential) {
+      setGoogleError('Google did not return a sign-in credential. Please try again.')
+      return
+    }
+    setGoogleError('')
+    setLoading(true)
+    try {
+      await loginWithGoogle(credential, false)
+    } catch (error) {
+      setGoogleError(error.message || 'Google sign-in failed. Please try again.')
+      try {
+        if (googleIdentity.current && googleButton.current) {
+          await prepareGoogleButton(googleIdentity.current, googleButton.current, import.meta.env.VITE_GOOGLE_CLIENT_ID, handleGoogleCredential)
+        }
+      } catch {
+        setGoogleError('Could not restart Google sign-in. Please refresh and try again.')
+      }
+    } finally {
+      setLoading(false)
+    }
+  }, [loginWithGoogle])
+
+  useEffect(() => {
+    let active = true
+    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
+    if (!clientId) {
+      setGoogleError('Google sign-in is not configured. Set VITE_GOOGLE_CLIENT_ID to enable it.')
+      return () => { active = false }
+    }
+
+    loadGoogleIdentity().then((google) => {
+      if (!active) return
+      if (!googleButton.current) return
+      googleIdentity.current = google
+      return prepareGoogleButton(google, googleButton.current, clientId, handleGoogleCredential)
+        .then(() => { if (active) setGoogleReady(true) })
+    }).catch((error) => {
+      if (active) setGoogleError(error.message)
+    })
+
+    return () => { active = false }
+  }, [handleGoogleCredential])
 
   return (
     <>
@@ -31,12 +120,18 @@ export default function SocialLogin() {
         <span className="h-px flex-1 bg-slate-200" /> or continue with <span className="h-px flex-1 bg-slate-200" />
       </div>
       <div className="flex flex-col gap-[12.44px]">
-        <button type="button" onClick={() => handleSocial('Apple')} className={buttonClass}>
+        <button type="button" className={buttonClass}>
           <AppleIcon /> Sign in with Apple
         </button>
-        <button type="button" onClick={() => handleSocial('Google')} className={buttonClass}>
-          <GoogleIcon /> Sign in with Google
-        </button>
+        <div className={`relative h-[32.67px] w-full overflow-hidden rounded-[9.33px] ${!googleReady || loading ? 'pointer-events-none opacity-60' : ''}`} aria-label="Sign in with Google">
+          <div ref={googleButton} className="absolute inset-0 flex justify-center" />
+          {!googleReady && (
+            <span className={`${buttonClass} pointer-events-none absolute inset-0`}>
+              <GoogleIcon /> Sign in with Google
+            </span>
+          )}
+        </div>
+        {googleError && <p role="alert" className="text-center text-[10px] text-red-600">{googleError}</p>}
       </div>
     </>
   )

@@ -1,5 +1,5 @@
 import { createContext, useCallback, useMemo, useState } from 'react'
-import { loginUser, registerUser } from '../services/authService'
+import { loginUser, loginWithGoogle as authenticateWithGoogle, registerUser } from '../services/authService'
 import { clearSession, loadSession, saveSession } from '../services/sessionService'
 
 export const AuthContext = createContext(null)
@@ -10,6 +10,13 @@ export function AuthProvider({ children }) {
 
   const login = useCallback(async (credentials, remember = false) => {
     const loggedInUser = await loginUser({ ...credentials, remember }, remember)
+    saveSession(loggedInUser, remember)
+    setUser(loggedInUser)
+    return loggedInUser
+  }, [])
+
+  const loginWithGoogle = useCallback(async (idToken, remember = false) => {
+    const loggedInUser = await authenticateWithGoogle(idToken, remember)
     saveSession(loggedInUser, remember)
     setUser(loggedInUser)
     return loggedInUser
@@ -28,8 +35,8 @@ export function AuthProvider({ children }) {
   }, [])
 
   const value = useMemo(
-    () => ({ user, isLoggedIn: Boolean(user), login, signup, logout }),
-    [user, login, signup, logout]
+    () => ({ user, isLoggedIn: Boolean(user), login, loginWithGoogle, signup, logout }),
+    [user, login, loginWithGoogle, signup, logout]
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

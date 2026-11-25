@@ -20,6 +20,7 @@ const PaymentPage = lazy(() => import('@/features/payment/pages/PaymentPage'))
 const ETicketPage = lazy(() => import('@/features/ticket/pages/ETicketPage'))
 const ManageBookingPage = lazy(() => import('@/features/manageBooking/pages/ManageBookingPage'))
 const BookingDetailsPage = lazy(() => import('@/features/manageBooking/pages/BookingDetailsPage'))
+const ReschedulePage = lazy(() => import('@/features/reschedule/pages/ReschedulePage'))
 const HelpSupportPage = lazy(() => import('@/features/help/pages/HelpSupportPage'))
 
 // Every page URL of the app.
@@ -51,6 +52,7 @@ export default function AppRoutes() {
           <Route path={PATHS.searchResults} element={<SearchResultsPage />} />
           <Route path={PATHS.manageBooking} element={<ManageBookingPage />} />
           <Route path={PATHS.bookingDetails} element={<BookingDetailsPage />} />
+          <Route path={PATHS.reschedule} element={<ReschedulePage />} />
         </Route>
         {/* Booking steps have their own header with the step bar */}
         <Route element={<BookingLayout />}>

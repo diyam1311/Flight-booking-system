@@ -2,7 +2,6 @@ import { ChevronDown } from 'lucide-react'
 import { BOX_CLASS, ERROR_CLASS, LABEL_CLASS, borderClass } from './TextField'
 
 // One labelled drop-down (a real <select>, so it works with the keyboard and on phones).
-// hideLabel: keep the label for screen readers only (the Title box has no visible label in Figma).
 export default function SelectField({ id, label, hideLabel = false, value, options, placeholder, onChange, error, className = '' }) {
   return (
     <div className={`group ${className}`}>

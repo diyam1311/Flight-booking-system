@@ -3,13 +3,7 @@ import { ArrowRight, BriefcaseBusiness, FilePenLine, X } from 'lucide-react'
 import FlightSummaryCard from './FlightSummaryCard'
 import PassengerSummary from './PassengerSummary'
 
-// "Booking Details Confirmed" popup (Figma: 501 wide, radius 20, padding 24, gap 20, about 808 tall).
-// Opens after Continue on the Traveller Details page, so the user can check everything once more.
-//   flight, search, passengers : the real values of this booking
-//   onClose()   : X button, Escape key or a click on the dark background (the user goes back to edit)
-//   onProceed() : "Proceed to Payment"
 export default function BookingSummaryModal({ flight, search, passengers, onClose, onProceed }) {
-  // Escape closes the popup, and the page behind it does not scroll while it is open
   useEffect(() => {
     const onKey = (e) => e.key === 'Escape' && onClose()
     document.addEventListener('keydown', onKey)
@@ -21,21 +15,18 @@ export default function BookingSummaryModal({ flight, search, passengers, onClos
   }, [onClose])
 
   return (
-    // The dark background scrolls if the screen is shorter than the popup. The popup itself never shrinks,
-    // so its size always matches Figma. "m-auto" centres it (and keeps its top reachable on small screens).
     <div onClick={onClose} className="fixed inset-0 z-50 flex overflow-y-auto bg-slate-900/60 p-4">
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="booking-summary-title"
-        onClick={(e) => e.stopPropagation()} // clicking inside the popup must not close it
+        onClick={(e) => e.stopPropagation()} 
         className="relative m-auto flex w-[501px] max-w-full flex-col gap-5 rounded-[20px] bg-white p-6 shadow-2xl"
       >
         <button type="button" onClick={onClose} aria-label="Close" className="absolute right-5 top-5 text-slate-300 hover:text-slate-500">
           <X size={16} />
         </button>
 
-        {/* icon, title, short text (Figma: 453 x 130) */}
         <header className="flex h-[130px] flex-col items-center pt-1 text-center">
           <span className="grid h-10 w-10 place-items-center rounded-full bg-orange-50 text-brand">
             <FilePenLine size={22} />
@@ -49,7 +40,6 @@ export default function BookingSummaryModal({ flight, search, passengers, onClos
         <FlightSummaryCard flight={flight} search={search} />
         <PassengerSummary passengers={passengers} />
 
-        {/* baggage is the same for every flight for now (Figma: 453 x 39) */}
         <div className="flex items-center gap-3 border-t border-slate-100 pt-[10px]">
           <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-emerald-50 text-emerald-600">
             <BriefcaseBusiness size={15} />
@@ -61,7 +51,6 @@ export default function BookingSummaryModal({ flight, search, passengers, onClos
           <span className="rounded-md bg-emerald-50 px-3 py-1.5 text-[13px] leading-4 text-emerald-600">Included</span>
         </div>
 
-        {/* Figma: 20px space above the button, 51.5px high */}
         <button
           type="button"
           onClick={onProceed}

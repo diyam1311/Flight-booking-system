@@ -10,7 +10,6 @@ export const PASSENGER_TYPES = {
   infant: { label: 'Infant', titles: ['Master', 'Miss'], minAge: 0, maxAge: 1, typicalAge: 1 },
 }
 
-// Picking a title also ticks the matching gender (the user can still change it)
 export const TITLE_GENDER = { Mr: 'Male', Mrs: 'Female', Ms: 'Female', Miss: 'Female', Master: 'Male' }
 
 export const GENDERS = ['Male', 'Female', 'Other']

@@ -1,6 +1,5 @@
 import { parseISO } from '@/utils/dates'
 
-// Small helpers for traveller names and dates.
 
 // { first: 'Ritika', middle: '', last: 'Sharma' } -> "Ritika Sharma"
 export const fullName = (person) => [person.first, person.middle, person.last].filter(Boolean).join(' ')

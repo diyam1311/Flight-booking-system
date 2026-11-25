@@ -4,12 +4,10 @@ import { formatDay, formatLong } from '@/utils/dates'
 // Light-blue flight box of the booking popup (Figma: 453 x 265.5, radius 23, padding 18.6 / 30.3).
 // flight : the flight that was selected      search : what the user searched (cities, date, cabin)
 export default function FlightSummaryCard({ flight, search }) {
-  // "All Class" is only a search filter, a booked flight always has a real class
   const cabin = search.cabin === 'All Class' ? 'Economy' : search.cabin
 
   return (
     <section className="flex h-[265.5px] flex-col justify-between rounded-[23px] bg-[#EFF5FD]/70 px-[30px] py-[19px]">
-      {/* airline + cabin class  ......  travel date */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <p className="text-[17px] font-bold leading-6 text-navy">{flight.airline}</p>
@@ -19,7 +17,6 @@ export default function FlightSummaryCard({ flight, search }) {
         <p className="text-xs text-slate-400">{formatLong(search.depart)}</p>
       </div>
 
-      {/* DEL  - - - plane - - -  BOM */}
       <div className="flex items-start justify-between">
         <div>
           <p className="text-[28px] font-bold leading-9">{flight.fromCode}</p>

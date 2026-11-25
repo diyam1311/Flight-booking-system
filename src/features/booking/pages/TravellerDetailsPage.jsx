@@ -46,7 +46,6 @@ function TravellerDetailsForm({ booking }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!form.validate()) {
-      // jump to the first box with a problem (after React has drawn the error messages)
       setTimeout(() => document.querySelector('[aria-invalid="true"]')?.focus(), 0)
       return
     }

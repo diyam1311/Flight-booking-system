@@ -33,7 +33,7 @@ function withoutErrors(errors, key, fields) {
 // All the state + rules of the Traveller Details form in one place.
 export default function useTravellerForm({ search, passengers: savedPassengers, contact: savedContact }) {
   const lastKey = useRef(0)
-  const makeKey = () => `passenger-${lastKey.current++}` // a stable id for each form (not the position)
+  const makeKey = () => `passenger-${lastKey.current++}`
 
   const [passengers, setPassengers] = useState(() =>
     savedPassengers?.map(p => ({ ...p, key: makeKey() })) ?? startingPassengers(search.pax, makeKey)

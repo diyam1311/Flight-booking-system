@@ -1,11 +1,14 @@
+import { reschedulePath } from '@/config/paths'
+import { helpSupport } from '@/config/paths'
 import { Calendar, CalendarX2, Headphones, Plane } from 'lucide-react'
 
-// Left menu of the Manage Booking page. Only "My Booking" has a page today; add `path` to the others when their pages exist.
+// Left menu of the Manage Booking page. `path(bookingId)` gives the page of an item that works on one booking;
+// the others (no `path`) have no page yet.
 export const MANAGE_MENU = [
   { label: 'My Booking', icon: Plane, active: true },
-  { label: 'Help & Support', icon: Headphones },
+  { label: 'Help & Support', icon: Headphones, path: helpSupport },
   { label: 'Cancellation', icon: CalendarX2 },
-  { label: 'Reschedule', icon: Calendar },
+  { label: 'Reschedule', icon: Calendar, path: reschedulePath, requiresBooking: true },
 ]
 
 // Status badge colours

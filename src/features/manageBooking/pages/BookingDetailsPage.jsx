@@ -68,7 +68,7 @@ function BookingDetails({ booking }) {
 
         {/* Figma: menu 298 wide, 25 gap, card 913 wide (radius 16, padding 16, gap 15) */}
         <div className="mt-[63px] flex flex-col gap-6 lg:flex-row lg:gap-[25px]">
-          <ManageMenu />
+          <ManageMenu bookingId={booking.id} />
           <div className="flex min-w-0 flex-1 flex-col gap-[15px] rounded-2xl bg-white p-4 lg:min-h-[816px]">
             <BookingAlertCard booking={booking} onDownload={() => download()} busy={busy} />
             <FlightSection booking={booking} />
