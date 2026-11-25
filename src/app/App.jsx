@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from '@/features/auth/context/AuthContext'
 import AppRoutes from './router/AppRoutes'
@@ -7,7 +8,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <AppRoutes />
+        <Suspense fallback={<p role="status" className="p-6 text-center text-navy">Loading...</p>}>
+          <AppRoutes />
+        </Suspense>
       </AuthProvider>
     </BrowserRouter>
   )

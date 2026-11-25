@@ -31,13 +31,14 @@ function withoutErrors(errors, key, fields) {
 }
 
 // All the state + rules of the Traveller Details form in one place.
-// Usage:  const form = useTravellerForm(search)
-export default function useTravellerForm(search) {
+export default function useTravellerForm({ search, passengers: savedPassengers, contact: savedContact }) {
   const lastKey = useRef(0)
   const makeKey = () => `passenger-${lastKey.current++}` // a stable id for each form (not the position)
 
-  const [passengers, setPassengers] = useState(() => startingPassengers(search.pax, makeKey))
-  const [contact, setContact] = useState({ email: '', mobile: '' }) // empty on purpose: the booking may be for someone else
+  const [passengers, setPassengers] = useState(() =>
+    savedPassengers?.map(p => ({ ...p, key: makeKey() })) ?? startingPassengers(search.pax, makeKey)
+  )
+  const [contact, setContact] = useState(savedContact ?? { email: '', mobile: '' })
   const [errors, setErrors] = useState({ passengers: {}, contact: {} })
 
   const patch = (key, changes) =>

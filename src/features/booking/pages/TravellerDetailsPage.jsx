@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, Plus } from 'lucide-react'
 import { useAuth } from '@/features/auth/hooks/useAuth'
@@ -18,19 +18,24 @@ export default function TravellerDetailsPage() {
   // Opened /traveller-details directly (no flight chosen) -> back to the homepage
   if (!state?.search || !state?.flight) return <Navigate to={PATHS.home} replace />
 
-  return <TravellerDetailsForm search={state.search} flight={state.flight} />
+  return <TravellerDetailsForm booking={state} />
 }
 
 // Split in two so the form's hooks only run when there really is a flight to book.
-function TravellerDetailsForm({ search, flight }) {
+function TravellerDetailsForm({ booking }) {
+  const { search, flight } = booking
   const navigate = useNavigate()
   const { user } = useAuth()
-  const form = useTravellerForm(search)
+  const form = useTravellerForm(booking)
   const { passengers, contact, errors } = form
 
   const [saved, setSaved] = useState([]) // saved travellers of this user
   const [submitting, setSubmitting] = useState(false)
   const [showSummary, setShowSummary] = useState(false) // the "Booking Details Confirmed" popup
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [])
 
   useEffect(() => {
     let stopped = false // so we do nothing if the user already left this page
@@ -57,7 +62,7 @@ function TravellerDetailsForm({ search, flight }) {
   }
 
   // "Proceed to Payment": open the payment page (step 3) and send it this booking
-  const proceedToPayment = () => navigate(PATHS.payment, { state: { search, flight, passengers, contact } })
+  const proceedToPayment = () => navigate(PATHS.payment, { state: { ...booking, passengers, contact } })
 
   return (
     <main className="relative">

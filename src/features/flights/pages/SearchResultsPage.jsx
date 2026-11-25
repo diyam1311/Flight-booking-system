@@ -24,7 +24,7 @@ export default function SearchResultsPage() {
   // The bar sends the NEW search (changed cities / dates / passengers...) -> loading page -> fresh results
   const searchAgain = (newSearch) => navigate(PATHS.searching, { state: { search: newSearch } })
   // Open the Traveller Details page for the chosen flight (it needs the search too, for the passenger count and travel date)
-  const selectFlight = (flight) => navigate(PATHS.travellerDetails, { state: { search, flight } })
+  const selectFlight = (flight) => navigate(PATHS.travellerDetails, { state: { search, flight, results: state } })
 
   const visibleFlights = sortFlights(filteredFlights, sortBy)
 

@@ -1,17 +1,6 @@
+import { lazy } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import LoginPage from '@/features/auth/pages/LoginPage'
-import SignupPage from '@/features/auth/pages/SignupPage'
-import ForgotPasswordPage from '@/features/auth/pages/ForgotPasswordPage'
-import ResetPasswordPage from '@/features/auth/pages/ResetPasswordPage'
 import HomePage from '@/features/home/pages/HomePage'
-import SearchLoadingPage from '@/features/flights/pages/SearchLoadingPage'
-import SearchResultsPage from '@/features/flights/pages/SearchResultsPage'
-import TravellerDetailsPage from '@/features/booking/pages/TravellerDetailsPage'
-import PaymentPage from '@/features/payment/pages/PaymentPage'
-import ETicketPage from '@/features/ticket/pages/ETicketPage'
-import ManageBookingPage from '@/features/manageBooking/pages/ManageBookingPage'
-import BookingDetailsPage from '@/features/manageBooking/pages/BookingDetailsPage'
-import HelpSupportPage from '@/features/help/pages/HelpSupportPage'
 import MainLayout from '@/layouts/MainLayout'
 import BookingLayout from '@/layouts/BookingLayout'
 import PaymentLayout from '@/layouts/PaymentLayout'
@@ -19,6 +8,19 @@ import TicketLayout from '@/layouts/TicketLayout'
 import { PATHS } from '@/config/paths'
 import GuestRoute from './GuestRoute'
 import ProtectedRoute from './ProtectedRoute'
+
+const LoginPage = lazy(() => import('@/features/auth/pages/LoginPage'))
+const SignupPage = lazy(() => import('@/features/auth/pages/SignupPage'))
+const ForgotPasswordPage = lazy(() => import('@/features/auth/pages/ForgotPasswordPage'))
+const ResetPasswordPage = lazy(() => import('@/features/auth/pages/ResetPasswordPage'))
+const SearchLoadingPage = lazy(() => import('@/features/flights/pages/SearchLoadingPage'))
+const SearchResultsPage = lazy(() => import('@/features/flights/pages/SearchResultsPage'))
+const TravellerDetailsPage = lazy(() => import('@/features/booking/pages/TravellerDetailsPage'))
+const PaymentPage = lazy(() => import('@/features/payment/pages/PaymentPage'))
+const ETicketPage = lazy(() => import('@/features/ticket/pages/ETicketPage'))
+const ManageBookingPage = lazy(() => import('@/features/manageBooking/pages/ManageBookingPage'))
+const BookingDetailsPage = lazy(() => import('@/features/manageBooking/pages/BookingDetailsPage'))
+const HelpSupportPage = lazy(() => import('@/features/help/pages/HelpSupportPage'))
 
 // Every page URL of the app.
 // To add a page: create it in a feature's pages/ folder, add a path in config/paths.js, add one <Route> below.
