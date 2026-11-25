@@ -8,9 +8,9 @@ const STEPS = ['Flight Selected', 'Passenger Details', 'Payment & Confirmation']
 export default function BookingStepper({ current }) {
   return (
     <>
-      <p className="text-xs font-semibold text-navy lg:hidden">Step {current} of {STEPS.length}</p>
+      <p className="text-xs font-semibold text-navy xl:hidden">Step {current} of {STEPS.length}</p>
 
-      <ol className="hidden items-center gap-[22px] text-xs lg:flex" aria-label="Booking steps">
+      <ol className="hidden items-center gap-[22px] text-xs xl:flex" aria-label="Booking steps">
         {STEPS.map((label, i) => {
           const step = i + 1
           const done = step < current

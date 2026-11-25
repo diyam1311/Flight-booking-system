@@ -5,9 +5,9 @@ import { ArrowRight, ChevronDown, Plane } from 'lucide-react'
 export default function FlightCard({ flight, onSelect }) {
   return (
     <article className="flex flex-col rounded-2xl border border-[#E2E8F0]/80 bg-white p-5 shadow-[0_1px_2px_rgba(0,0,0,0.05)] lg:h-[259.5px]">
-      <div className="flex flex-1 flex-col gap-6 lg:flex-row lg:justify-between lg:gap-0">
+      <div className="flex flex-1 flex-col gap-6 md:flex-row md:justify-between lg:gap-0">
         {/* LEFT: airline, then departure -> route -> arrival */}
-        <div className="flex-1">
+        <div className="min-w-0 flex-1">
           <div className="flex items-center gap-3">
             <span className={`grid h-9 w-9 place-items-center rounded-lg text-[11px] font-bold text-white ${flight.logoColor}`}>
               {flight.logoText}
@@ -20,14 +20,14 @@ export default function FlightCard({ flight, onSelect }) {
 
           <div className="mt-2 flex flex-wrap items-start gap-y-4 lg:mt-[48px] lg:flex-nowrap">
             {/* departure */}
-            <div className="w-[115px] shrink-0">
+            <div className="w-[29%] sm:w-[115px] shrink-0">
               <p className="text-2xl font-bold leading-7">{flight.depTime}</p>
               <p className="mt-1 text-[10px] font-bold leading-[14px]">{flight.fromCode}</p>
               <p className="mt-[3px] text-[10px] leading-[13px] text-slate-400">{flight.fromAirport}</p>
             </div>
 
             {/* route: duration, dashed line with a plane, stops (274 wide) */}
-            <div className="flex min-w-[120px] flex-1 flex-col items-center px-2 lg:ml-[111px] lg:w-[274px] lg:flex-none lg:px-0 lg:pt-[9px]">
+            <div className="flex min-w-0 flex-1 flex-col items-center px-2 lg:ml-3 lg:max-w-[274px] min-[1440px]:ml-[111px] lg:px-0 lg:pt-[9px]">
               <span className="text-[10px] leading-[14px] text-slate-500">{flight.duration}</span>
               <div className="mt-px flex h-3 w-full items-center">
                 <span className="flex-1 border-t border-dashed border-sky-500" />
@@ -38,7 +38,7 @@ export default function FlightCard({ flight, onSelect }) {
             </div>
 
             {/* arrival */}
-            <div className="w-[115px] shrink-0 lg:ml-[27px]">
+            <div className="w-[29%] sm:w-[115px] shrink-0 lg:ml-[27px]">
               <p className="text-2xl font-bold leading-7">{flight.arrTime}</p>
               <p className="mt-1 text-[10px] font-bold leading-[14px]">{flight.toCode}</p>
               <p className="mt-[3px] text-[10px] leading-[13px] text-slate-400">{flight.toAirport}</p>
@@ -47,7 +47,7 @@ export default function FlightCard({ flight, onSelect }) {
         </div>
 
         {/* RIGHT: tag, price, Select Flight button */}
-        <div className="flex flex-col items-start lg:w-[160px] lg:items-end">
+        <div className="ml-auto flex w-[160px] shrink-0 flex-col items-end">
           {flight.tag ? (
             <span className="inline-flex h-5 items-center rounded-full bg-emerald-50 px-4 text-[10px] font-semibold text-emerald-600 lg:mt-2.5">
               {flight.tag}

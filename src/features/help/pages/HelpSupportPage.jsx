@@ -54,7 +54,7 @@ export default function HelpSupportPage() {
             {shownTopics.length > 0 && (
               <>
                 <SectionTitle icon={BookOpen} title="Popular Help Topics" subtitle="Quick answers to the most common questions." className="mt-[48px]" />
-                <div className="mt-[26px] grid items-start gap-6 lg:grid-cols-[608px_608px]">
+                <div className="mt-[26px] grid items-start gap-6 lg:grid-cols-2">
                   <TopicCard topics={topicsLeft} openId={openTopic} onToggle={toggle(setOpenTopic)} />
                   {topicsRight.length > 0 && <TopicCard topics={topicsRight} openId={openTopic} onToggle={toggle(setOpenTopic)} />}
                 </div>
@@ -64,7 +64,7 @@ export default function HelpSupportPage() {
         )}
 
         {/* Figma: banner 595.78 wide, 36 gap, contact block 608 wide */}
-        <div className="mt-[38px] flex flex-col gap-9 lg:flex-row lg:items-start">
+        <div className="mt-[38px] flex flex-col gap-9 xl:flex-row lg:items-start">
           <ManageBookingBanner />
           <ContactSection contacts={contacts} />
         </div>
@@ -72,7 +72,7 @@ export default function HelpSupportPage() {
         {shownFaqs.length > 0 && (
           <>
             <SectionTitle title="Frequently Asked Questions" subtitle="Find quick answers to common queries." className="mt-[53px]" />
-            <div className="mt-[26px] flex flex-col items-start gap-6 lg:flex-row lg:gap-[26px]">
+            <div className="mt-[26px] flex flex-col items-start gap-6 xl:flex-row lg:gap-[26px]">
               <FaqCard faqs={faqsLeft} openId={openFaq} onToggle={toggle(setOpenFaq)} />
               {faqsRight.length > 0 && <FaqCard faqs={faqsRight} openId={openFaq} onToggle={toggle(setOpenFaq)} />}
             </div>

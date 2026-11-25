@@ -27,7 +27,7 @@ function TopicRow({ topic, open, onToggle }) {
 // openId / onToggle come from the page, so only one answer is open at a time across both cards.
 export default function TopicCard({ topics, openId, onToggle }) {
   return (
-    <ul className="rounded-[20px] bg-white px-[21px] py-[25px] lg:w-[608px]">
+    <ul className="rounded-[20px] bg-white px-[21px] py-[25px] w-full min-w-0">
       {topics.map((t) => (
         <TopicRow key={t.id} topic={t} open={openId === t.id} onToggle={() => onToggle(t.id)} />
       ))}

@@ -54,7 +54,7 @@ function BookingDetails({ booking }) {
     <main className="px-4 pb-[30px] pt-10 lg:pt-[61px]">
       <div className="mx-auto max-w-[1240px]">
         {/* back arrow + title (Figma block: 1242 x 120) */}
-        <div className="flex items-start gap-[38px] lg:h-[120px]">
+        <div className="flex flex-wrap items-start gap-4 sm:flex-nowrap sm:gap-[38px] lg:h-[120px]">
           <button type="button" onClick={() => navigate(-1)} aria-label="Back" className="mt-[18px] grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full border border-slate-200 bg-white/70 text-slate-500 hover:text-navy">
             <ArrowLeft size={14} />
           </button>

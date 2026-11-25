@@ -14,7 +14,7 @@ export default function PaymentHeader() {
   return (
     <header className="border-b-[0.3px] border-black/10 bg-white">
       <div className="mx-auto flex h-[51px] max-w-[1440px] items-center justify-between gap-4 px-4 py-[6px] md:px-10 xl:px-[104px]">
-        <Link to={PATHS.home}><img src={logo} alt="Mobiyantra" className="h-[38px] w-auto" /></Link>
+        <Link to={PATHS.home}><img src={logo} alt="Mobiyantra" className="h-6 w-auto sm:h-[38px]" /></Link>
         <BookingStepper current={3} />
 
         <div className="flex items-center gap-3">

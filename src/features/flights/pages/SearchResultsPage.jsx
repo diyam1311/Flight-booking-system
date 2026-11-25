@@ -46,7 +46,7 @@ export default function SearchResultsPage() {
       {/* Results area: 1238 wide */}
       <section className="mx-auto mt-14 max-w-[1238px] px-4 md:px-6 lg:mt-[70px] xl:px-0">
         {/* "Showing x of y flights" + sort */}
-        <div className="flex h-[50px] items-center justify-between pb-[10px] text-xs text-slate-500">
+        <div className="flex min-h-[50px] flex-wrap gap-2 items-center justify-between pb-[10px] text-xs text-slate-500">
           <p>
             Showing <b className="text-slate-900">{visibleFlights.length}</b> of <b className="text-slate-900">{total}</b> flights
           </p>
@@ -63,7 +63,7 @@ export default function SearchResultsPage() {
         </div>
 
         {/* Promotional banner: 1238 x 101, radius 16, padding 20, orange fades in from the left */}
-        <div className="mt-[17px] flex h-[101px] items-center justify-between rounded-2xl border border-brand/70 bg-gradient-to-r from-brand/5 via-brand/10 via-70% to-brand p-5">
+        <div className="mt-[17px] flex min-h-[101px] flex-wrap gap-3 items-center justify-between rounded-2xl border border-brand/70 bg-gradient-to-r from-brand/5 via-brand/10 via-70% to-brand p-5">
           <div className="flex items-center gap-4">
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand text-white"><BadgePercent size={20} /></span>
             <div>
@@ -88,7 +88,7 @@ export default function SearchResultsPage() {
             onPriceChange={setMaxPrice}
             onClear={clearAll}
           />
-          <div className="flex w-full flex-col gap-[17px] lg:w-[932px]">
+          <div className="flex w-full min-w-0 flex-col gap-[17px] lg:flex-1">
             {visibleFlights.length === 0 ? (
               <div className="rounded-2xl border border-[#E2E8F0]/80 bg-white px-6 py-14 text-center shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
                 <p className="text-base font-bold">No flights match your filters</p>

@@ -19,7 +19,7 @@ export default function BookingRow({ booking, onOpen }) {
       <CityThumb code={flight.fromCode} />
 
       {/* route: from -> to */}
-      <div className="flex min-w-[260px] flex-1 items-center justify-between gap-4">
+      <div className="flex w-full min-w-0 sm:min-w-[260px] sm:flex-1 items-center justify-between gap-2 sm:gap-4">
         <Place code={flight.fromCode} date={ticketDate(search.depart)} time={time12(flight.depTime)} />
         <span className="flex flex-1 items-center text-navy" aria-hidden="true">
           <span className="h-px flex-1 border-t border-dotted border-slate-300" />
@@ -48,7 +48,7 @@ export default function BookingRow({ booking, onOpen }) {
 
 function Place({ code, date, time }) {
   return (
-    <div className="w-[100px] shrink-0">
+    <div className="w-[35%] max-w-[100px] shrink-0">
       <p className="text-[10px] font-bold leading-[14px]">{findCity(code)?.city ?? code} ({code})</p>
       <p className="text-[8px] leading-[11px] text-slate-400">{date}</p>
       <p className="text-[9px] font-bold leading-[13px]">{time}</p>

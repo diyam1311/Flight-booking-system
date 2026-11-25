@@ -13,7 +13,7 @@ export default function TicketSuccess({ email, bookingId, bookedOn }) {
         <div className="min-w-0 flex-1">
           <p className="text-base leading-5 text-green-600">Payment Successful !</p>
           <h1 className="text-2xl font-bold leading-8">Your E-ticket is Ready</h1>
-          <p className="mt-2 text-xs leading-4 text-slate-400">
+          <p className="mt-2 break-words text-xs leading-4 text-slate-400">
             Thank you for booking with Mobiyantra. Your flight details and e-ticket have been emailed to you.
           </p>
         </div>

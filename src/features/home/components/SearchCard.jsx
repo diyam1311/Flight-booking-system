@@ -21,10 +21,10 @@ export default function SearchCard() {
   return (
     <div className="mx-auto max-w-[1200px]">
       {/* Flights / Manage Booking / Flight Status – row height 45, padding-x 12, gap 4 */}
-      <div className="flex h-[45px] items-stretch gap-1 px-3 text-xs font-medium text-white/80">
-        <button className="flex min-w-[135px] items-center justify-center gap-2 rounded-t-xl bg-brand px-[22px] text-white"><Plane size={14} /> Flights</button>
-        <button type="button" onClick={() => navigate(PATHS.manageBooking)} className="hidden items-center gap-2 px-[22px] hover:text-white sm:flex"><CalendarCheck size={14} /> Manage Booking</button>
-        <button className="hidden items-center gap-2 px-[22px] sm:flex"><Info size={14} /> Flight Status</button>
+      <div className="flex min-h-[45px] items-stretch gap-1 px-1 sm:px-3 text-xs font-medium text-white/80">
+        <button className="flex flex-1 sm:min-w-[135px] sm:flex-none items-center justify-center gap-2 rounded-t-xl bg-brand px-1 sm:px-[22px] text-white"><Plane size={14} /> Flights</button>
+        <button type="button" onClick={() => navigate(PATHS.manageBooking)} className="flex flex-1 items-center justify-center sm:flex-none gap-2 px-1 sm:px-[22px] hover:text-white"><CalendarCheck size={14} /> Manage Booking</button>
+        <button className="flex flex-1 items-center justify-center sm:flex-none gap-2 px-1 sm:px-[22px]"><Info size={14} /> Flight Status</button>
       </div>
 
       {/* Card: 1200 x 255, radius 20, shadow 0 8 40 8% */}
@@ -33,7 +33,7 @@ export default function SearchCard() {
           <div className="flex rounded-xl bg-slate-100 p-1.5 text-xs font-medium">
             {TRIP_TYPES.map((t) => (
               <button key={t} type="button" onClick={() => setTrip(t)}
-                className={`rounded-lg py-3 ${form.trip === t ? 'bg-brand px-8 text-white' : 'px-5'}`}>{t}</button>
+                className={`rounded-lg py-3 ${form.trip === t ? 'bg-brand px-3 sm:px-8 text-white' : 'px-2 sm:px-5'}`}>{t}</button>
             ))}
           </div>
           <PassengerDropdown pax={form.pax} setPax={setPax} />

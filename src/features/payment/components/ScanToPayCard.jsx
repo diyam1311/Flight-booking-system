@@ -20,13 +20,13 @@ export default function ScanToPayCard({ total, note }) {
   }
 
   return (
-    <section className="flex h-[170px] w-full items-center justify-between rounded-2xl border border-[#E2E8F0]/70 bg-white py-[14px] pl-6 pr-[10px] xl:w-[425px]">
+    <section className="flex w-full flex-col items-center gap-3 sm:h-[170px] sm:flex-row sm:gap-0 justify-between rounded-2xl border border-[#E2E8F0]/70 bg-white py-[14px] pl-6 pr-[10px] xl:w-[425px]">
       <div className="flex h-full flex-col">
         <h2 className="text-2xl font-bold leading-6">Scan to Pay</h2>
         <p className="mt-[23px] text-sm leading-5 text-slate-700">High Success Rate &amp; Easy Refund</p>
 
         {/* supported apps */}
-        <div className="mb-[15px] mt-auto flex items-center gap-5">
+        <div className="mt-3 flex sm:mb-[15px] sm:mt-auto items-center gap-5">
           <UpiLogo className="text-[23px]" />
           <span className="text-xl font-medium text-slate-500"><span className="font-bold text-blue-500">G</span> Pay</span>
           <span className="grid h-6 w-6 place-items-center rounded bg-slate-900 text-[10px] font-bold text-white">Pe</span>

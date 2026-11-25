@@ -20,7 +20,7 @@ export default function UserMenu({ user, onLogout }) {
         className="flex items-center gap-2 text-base font-medium"
       >
         <Avatar user={user} />
-        {getFirstName(user)}
+        <span className="max-w-[24vw] truncate">{getFirstName(user)}</span>
         <ChevronDown size={14} className={`transition ${open ? 'rotate-180' : ''}`} />
       </button>
 

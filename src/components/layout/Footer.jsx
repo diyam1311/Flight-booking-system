@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <footer className="mx-auto mt-8 max-w-[1240px] px-4 pb-10 md:px-6 xl:px-0">
       <div className="rounded-[30px] border border-[#C6C6C6]/70 bg-white px-6 pt-10 md:px-10 lg:px-[86px] lg:pt-[88px]">
-        <div className="grid gap-10 md:grid-cols-2 lg:min-h-[309px] lg:grid-cols-[335px_176px_164px_198px_1fr] lg:gap-0">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3 xl:min-h-[309px] xl:grid-cols-[335px_176px_164px_198px_1fr] xl:gap-0">
           {/* Brand */}
           <div>
             <img src={logo} alt="Mobiyantra" className="h-[36.36px] w-auto" />

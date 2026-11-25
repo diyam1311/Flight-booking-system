@@ -25,7 +25,7 @@ function MonthGrid({ monthStart, depart, ret, showRange, minDate, onPick }) {
               disabled={disabled}
               onClick={() => onPick(iso)}
               aria-label={formatShort(iso)}
-              className={`mx-auto h-9 w-9 rounded-full text-[11px] transition ${
+              className={`mx-auto h-9 w-full max-w-9 rounded-full text-[11px] transition ${
                 disabled
                   ? 'cursor-not-allowed text-slate-300'
                   : isEnd

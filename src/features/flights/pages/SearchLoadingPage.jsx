@@ -45,13 +45,13 @@ export default function SearchLoadingPage() {
       {/* Header: 1440 x 85.3, padding 20 / 104, logo on the left and the user on the right */}
       <header className="border-b-[0.3px] border-black/10">
         <div className="mx-auto flex h-[85.3px] max-w-[1440px] items-center justify-between px-4 md:px-10 xl:px-[104px]">
-          <Link to={PATHS.home}><img src={logo} alt="Mobiyantra" className="h-[36.36px] w-auto" /></Link>
+          <Link to={PATHS.home}><img src={logo} alt="Mobiyantra" className="h-7 w-auto sm:h-[36.36px]" /></Link>
           <UserMenu user={user} onLogout={logout} />
         </div>
       </header>
 
       {/* Container: 527 x 359, starts 204px from the top of the frame (header 85 + 119) */}
-      <main className="mx-auto mt-16 flex h-[359px] w-full max-w-[527px] flex-col items-center px-4 text-center md:mt-[119px] md:px-0">
+      <main className="mx-auto mt-16 flex min-h-[359px] w-full max-w-[527px] flex-col items-center px-4 text-center md:mt-[119px] md:px-0">
         {/* Spinning ring with a plane in the middle */}
         <div className="relative mt-[15px] h-20 w-20">
           <span className="absolute inset-0 animate-spin rounded-full border-[3px] border-slate-200 border-t-navy" />

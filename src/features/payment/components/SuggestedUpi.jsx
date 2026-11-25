@@ -9,20 +9,20 @@ export default function SuggestedUpi({ total, onPay }) {
     <section>
       <h2 className="pl-[11px] text-[15px] font-bold uppercase leading-4 tracking-wide">Suggested Options</h2>
 
-      <div className="mt-[13px] flex h-[179.13px] w-full flex-col gap-[16.5px] rounded-[18px] border-[1.13px] border-[#A7F3D0] bg-gradient-to-r from-[#ECFDF5] via-[#F0FBFC] to-[#ECFDF5] p-[22.32px] xl:w-[787.39px]">
-        <p className="flex h-7 w-fit items-center gap-2 rounded-full border border-emerald-200 bg-white/70 px-4 text-[13.5px] font-semibold text-emerald-700">
+      <div className="mt-[13px] flex min-h-[179.13px] w-full flex-col gap-[16.5px] rounded-[18px] border-[1.13px] border-[#A7F3D0] bg-gradient-to-r from-[#ECFDF5] via-[#F0FBFC] to-[#ECFDF5] p-[22.32px] xl:w-[787.39px]">
+        <p className="flex min-h-7 w-fit items-center gap-2 rounded-full border border-emerald-200 bg-white/70 px-4 text-[13.5px] font-semibold text-emerald-700">
           <Sparkles size={14} /> Get instant corporate discount on UPI of ₹ 50
         </p>
 
         <button
           type="button"
           onClick={onPay}
-          className="flex h-[87.73px] w-full items-center justify-between gap-4 rounded-2xl border-[1.13px] border-[#A7F3D0] bg-white px-[18.1px] text-left transition hover:shadow-md"
+          className="flex min-h-[87.73px] w-full flex-col items-start py-3 sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border-[1.13px] border-[#A7F3D0] bg-white px-[18.1px] text-left transition hover:shadow-md"
         >
           <span className="flex items-center gap-5">
             <UpiLogo className="text-[26px]" />
             <span>
-              <span className="flex items-center gap-2.5">
+              <span className="flex flex-wrap items-center gap-2.5">
                 <span className="text-lg font-semibold leading-6">Instant UPI Options</span>
                 <span className="rounded-md bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-700">Zero Gateway Fee</span>
               </span>

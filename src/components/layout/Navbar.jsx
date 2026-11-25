@@ -5,7 +5,7 @@ import Avatar from '@/features/auth/components/Avatar'
 import UserMenu from '@/features/auth/components/UserMenu'
 import { getFirstName } from '@/features/auth/utils/userName'
 import { PATHS } from '@/config/paths'
-import { navLinks, loggedInNavLinks, navLinkPaths } from '@/config/site'
+import { navLinks, navLinkPaths } from '@/config/site'
 import logo from '@/assets/logos/logo.svg'
 
 // Right side of the navbar: profile menu when logged in, Login / Register link when not.
@@ -20,7 +20,6 @@ function AuthArea({ user, onLogout }) {
 
 export default function Navbar({ user, onLogout }) {
   const [open, setOpen] = useState(false)
-  const links = user ? loggedInNavLinks : navLinks
 
   return (
     <header className="border-b border-black/10">
@@ -29,7 +28,7 @@ export default function Navbar({ user, onLogout }) {
         <div className="flex items-center gap-[60px] xl:gap-[160px]">
           <Link to={PATHS.home}><img src={logo} alt="Mobiyantra" className="h-[36.36px] w-auto" /></Link>
           <nav className="hidden items-center gap-[34px] text-base font-medium lg:flex">
-            {links.map((l) => (
+            {navLinks.map((l) => (
               <Link key={l} to={navLinkPaths[l] ?? '#'} className="hover:text-brand">{l}</Link>
             ))}
           </nav>
@@ -43,7 +42,7 @@ export default function Navbar({ user, onLogout }) {
 
       {open && (
         <nav className="flex flex-col gap-4 border-t border-black/10 px-4 py-4 text-sm font-medium lg:hidden">
-          {links.map((l) => <Link key={l} to={navLinkPaths[l] ?? '#'} onClick={() => setOpen(false)}>{l}</Link>)}
+          {navLinks.map((l) => <Link key={l} to={navLinkPaths[l] ?? '#'} onClick={() => setOpen(false)}>{l}</Link>)}
           {user ? (
             <>
               <span className="flex items-center gap-2"><Avatar user={user} /> {getFirstName(user)}</span>

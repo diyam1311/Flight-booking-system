@@ -24,7 +24,7 @@ export default function SearchSummaryBar({ search, onSearch }) {
       <div className="flex flex-wrap items-center gap-x-[30px] gap-y-1 text-xs font-medium text-slate-700 lg:h-5 lg:pl-[10px]">
         <OptionSelect label="Trip type" value={form.trip} options={TRIP_TYPES} onChange={setTrip} />
         <PassengerDropdown pax={form.pax} setPax={setPax} format={passengerText} className="text-xs font-medium" />
-        <OptionSelect label="Cabin class" value={form.cabin} options={CABIN_CLASSES} onChange={setCabin} format={cabinText} />
+        <OptionSelect label="Cabin class" value={form.cabin} options={CABIN_CLASSES} onChange={setCabin} format={cabinText} alignEnd />
       </div>
 
       {/* From | To | Departure | Return + calendar */}

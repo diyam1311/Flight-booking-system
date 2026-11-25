@@ -3,7 +3,7 @@
 // Sizes below come from Figma. "login", "signup", "forgot" and "reset" have slightly different measurements.
 const LAYOUT = {
   login: {
-    card: 'md:w-[770px] md:min-h-[531px] md:pb-[18.67px] md:pl-[22.55px] md:pt-[16.33px]',
+    card: 'md:w-full md:!max-w-[770px] md:min-h-[531px] md:pb-[18.67px] md:pl-[22.55px] md:pt-[16.33px]',
     image: 'md:h-[496px] md:w-[328px]',
     form: 'md:ml-[12.65px] md:mt-[2.34px] md:min-h-[494px] md:w-[360.68px] md:p-[18.67px]',
   },
@@ -20,9 +20,9 @@ const LAYOUT = {
     form: 'md:ml-auto md:w-[55%] md:min-w-0 md:items-center md:justify-start md:px-[46.09px] md:pb-10 md:pt-[43px]',
   },
   signup: {
-    card: 'md:w-[797px] md:min-h-[536px] md:py-[18px] md:pl-[18px]',
+    card: 'md:w-full md:!max-w-[797px] md:min-h-[536px] md:py-[18px] md:pl-[18px]',
     image: 'md:h-[500px] md:w-[350px]',
-    form: 'md:ml-[59px] md:min-h-[510px] md:w-[350px] md:py-[13px]',
+    form: 'md:ml-[clamp(12px,calc(100vw-780px),59px)] md:min-h-[510px] md:w-[350px] md:py-[13px]',
   },
 }
 

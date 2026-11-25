@@ -33,13 +33,13 @@ export default function DobCalendar({ value, startDate, onPick }) {
   const arrowClass = 'grid h-8 w-8 shrink-0 place-items-center rounded-full text-slate-600 hover:bg-slate-100 disabled:opacity-30 disabled:hover:bg-transparent'
 
   return (
-    <div className="w-[300px] max-w-[calc(100vw-2rem)] p-4">
+    <div className="w-[300px] max-w-[calc(100vw-5rem)] p-2 sm:max-w-[calc(100vw-2rem)] sm:p-4">
       {/* < Month  Year > */}
       <div className="flex items-center justify-between gap-2">
         <button type="button" onClick={() => goTo(view.year, view.month - 1)} disabled={atStart} aria-label="Previous month" className={arrowClass}>
           <ChevronLeft size={16} />
         </button>
-        <select aria-label="Month" value={view.month} onChange={(e) => goTo(view.year, Number(e.target.value))} className={`${selectClass} flex-1`}>
+        <select aria-label="Month" value={view.month} onChange={(e) => goTo(view.year, Number(e.target.value))} className={`${selectClass} min-w-0 flex-1`}>
           {MONTHS.map((name, m) => <option key={name} value={m}>{name}</option>)}
         </select>
         <select aria-label="Year" value={view.year} onChange={(e) => goTo(Number(e.target.value), view.month)} className={`${selectClass} w-[72px]`}>
