@@ -1,4 +1,7 @@
-import { CITY_PHOTOS } from '../data/cityPhotos'
+import delhi from '../assests/city-delhi.png'
+import bangalore from '../assests/city-bangalore.png'
+
+const CITY_PHOTOS = { DEL: delhi, BLR: bangalore, GOI: '/images/gateways/goa.jpg' }
 
 // Drawings (24 x 24 grid) for the cities that have no photo yet: Mumbai, Hyderabad, Kolkata.
 const DRAWINGS = {

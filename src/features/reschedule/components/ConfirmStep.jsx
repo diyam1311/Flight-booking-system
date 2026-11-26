@@ -1,10 +1,19 @@
+import { useEffect, useState } from 'react'
 import { Clock } from 'lucide-react'
-import { useCountdown } from '../hooks/useCountdown'
 import { formatClock } from '../utils/format'
 import FareRulesCard from './FareRulesCard'
 import HelpDeskCard from './HelpDeskCard'
 import SettlementCard from './SettlementCard'
 import TicketCard from './TicketCard'
+
+function useCountdown(expiresAt) {
+  const [now, setNow] = useState(Date.now())
+  useEffect(() => {
+    const timer = setInterval(() => setNow(Date.now()), 1000)
+    return () => clearInterval(timer)
+  }, [])
+  return Math.max(0, Math.round((expiresAt - now) / 1000))
+}
 
 // Step 3 - "Confirmation": the new ticket on the left, the fare breakdown on the right.
 //   quote : what getReissueQuote() returned (see MOCK_QUOTE in data/rescheduleMock.js)

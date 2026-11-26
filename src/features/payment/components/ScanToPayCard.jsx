@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import QrCode from './QrCode'
-import UpiLogo from './UpiLogo'
 import { makeQrCode } from '../utils/qrCode'
 import { buildUpiLink } from '../utils/upi'
 
@@ -27,7 +26,7 @@ export default function ScanToPayCard({ total, note }) {
 
         {/* supported apps */}
         <div className="mt-3 flex sm:mb-[15px] sm:mt-auto items-center gap-5">
-          <UpiLogo className="text-[23px]" />
+          <span className="font-black italic tracking-tight text-slate-700 text-[23px]">UP<span className="text-brand">I</span><span className="text-emerald-500">▸</span></span>
           <span className="text-xl font-medium text-slate-500"><span className="font-bold text-blue-500">G</span> Pay</span>
           <span className="grid h-6 w-6 place-items-center rounded bg-slate-900 text-[10px] font-bold text-white">Pe</span>
           <span className="text-base font-extrabold text-sky-900">pay<span className="text-sky-500">tm</span></span>

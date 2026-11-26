@@ -1,10 +1,20 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Clock } from 'lucide-react'
 import BookingStepper from '@/features/booking/components/BookingStepper'
 import { PATHS } from '@/config/paths'
 import logo from '@/assets/logos/logo.svg'
-import usePaymentTimer from '../hooks/usePaymentTimer'
 import { PAYMENT_SESSION_MINUTES } from '../data/paymentOptions'
+
+function usePaymentTimer(minutes) {
+  const [secondsLeft, setSecondsLeft] = useState(minutes * 60)
+  useEffect(() => {
+    const id = setInterval(() => setSecondsLeft((seconds) => Math.max(seconds - 1, 0)), 1000)
+    return () => clearInterval(id)
+  }, [])
+  const pad = (number) => String(number).padStart(2, '0')
+  return `${pad(Math.floor(secondsLeft / 60))}:${pad(secondsLeft % 60)}`
+}
 
 // Header of the payment pages (Figma: 1441 x 52 = 51 + the 1px border, padding 6 / 104).
 // Logo, the steps (step 3 is active), then the countdown and "Safe & Secured".

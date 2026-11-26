@@ -57,6 +57,7 @@ export default function FlightOptionCard({ flight, onSelect, busy }) {
           <div className="min-w-0">
             <p className="text-sm font-semibold leading-5 text-[#0B4A8F]">{fare.title}</p>
             <p className="flex items-center gap-1 text-xs text-slate-500"><Info size={11} className="shrink-0" /> {fare.note}</p>
+            {Number.isFinite(Number(flight.baseFare)) && <p className="mt-1 text-xs font-semibold text-navy">Base fare: ₹{Number(flight.baseFare).toLocaleString('en-IN')}</p>}
           </div>
         </div>
         <button type="button" onClick={onSelect} disabled={busy} className="flex h-11 shrink-0 items-center justify-center gap-2 rounded-lg bg-navy px-5 text-sm font-semibold text-white hover:brightness-110 disabled:opacity-60">

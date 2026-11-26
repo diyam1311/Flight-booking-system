@@ -1,5 +1,4 @@
 import { ChevronRight, Sparkles } from 'lucide-react'
-import UpiLogo from './UpiLogo'
 import { formatRupees } from '../utils/pricing'
 
 // "SUGGESTED OPTIONS" (Figma: green box 787.39 x 179.13, radius 18, padding 22.3, UPI card 87.73 high, border 1.13).
@@ -20,7 +19,7 @@ export default function SuggestedUpi({ total, onPay }) {
           className="flex min-h-[87.73px] w-full flex-col items-start py-3 sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border-[1.13px] border-[#A7F3D0] bg-white px-[18.1px] text-left transition hover:shadow-md"
         >
           <span className="flex items-center gap-5">
-            <UpiLogo className="text-[26px]" />
+            <span className="font-black italic tracking-tight text-slate-700 text-[26px]">UP<span className="text-brand">I</span><span className="text-emerald-500">▸</span></span>
             <span>
               <span className="flex flex-wrap items-center gap-2.5">
                 <span className="text-lg font-semibold leading-6">Instant UPI Options</span>

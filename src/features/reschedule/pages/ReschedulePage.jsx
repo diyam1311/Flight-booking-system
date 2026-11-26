@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { bookingDetailsPath } from '@/config/paths'
+import { PATHS } from '@/config/paths'
 import ConfirmStep from '../components/ConfirmStep'
 import RescheduleHeader from '../components/RescheduleHeader'
 import RescheduleStepper from '../components/RescheduleStepper'
@@ -23,9 +23,25 @@ export default function ReschedulePage() {
   // every new step starts at the top of the page
   useEffect(() => { window.scrollTo({ top: 0 }) }, [flow.step])
 
-  const confirm = async () => {
-    // Real backend: if the response has a payment link, open it here instead of going back.
-    if (await flow.confirm()) navigate(bookingDetailsPath(bookingId))
+  const goToPayment = () => {
+    const flight = flow.session?.selectedFlight
+    const date = flow.session?.selectedDate
+    if (!flight || !flow.quote) return
+    navigate(PATHS.payment, {
+      state: {
+        reschedulePayment: { bookingId, sessionId: flow.session.id, quote: flow.quote },
+        flight: {
+          code: flight.flightNo,
+          fromCode: flight.from.code,
+          toCode: flight.to.code,
+          airline: flight.airline,
+          baseFare: flight.baseFare,
+        },
+        search: { departureDate: date?.long, origin: flight.from.code, destination: flight.to.code },
+        passengers: [{ firstName: flow.offer?.itinerary?.passengerName || 'Passenger', lastName: '' }],
+        contact: {},
+      },
+    })
   }
 
   return (
@@ -40,7 +56,7 @@ export default function ReschedulePage() {
           <SelectFlightStep offer={flow.offer} dateId={flow.dateId} onDateChange={flow.setDateId} flights={flow.flights} onSelectFlight={flow.selectFlight} busy={flow.busy} />
         )}
         {flow.step === 2 && <VerificationStep session={flow.session} chat={chat} onNext={flow.viewFinalQuote} busy={flow.busy} />}
-        {flow.step === 3 && <ConfirmStep quote={flow.quote} onConfirm={confirm} onReturnToChat={flow.goToChat} busy={flow.busy} />}
+        {flow.step === 3 && <ConfirmStep quote={flow.quote} onConfirm={goToPayment} onReturnToChat={flow.goToChat} busy={flow.busy} />}
       </div>
     </main>
   )

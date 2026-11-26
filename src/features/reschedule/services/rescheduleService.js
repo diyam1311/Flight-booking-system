@@ -1,4 +1,4 @@
-import { MOCK_FLIGHTS, MOCK_OFFER, MOCK_QUOTE, buildMockSession, mockAgentReply } from '../data/rescheduleMock'
+import { MOCK_FLIGHTS, MOCK_OFFER, buildMockQuote, buildMockSession, mockAgentReply } from '../data/rescheduleMock'
 import { nowTime } from '../utils/format'
 
 /**
@@ -46,16 +46,17 @@ export async function sendChatMessage(sessionId, text) {
 // Step 2 -> 3 - the airline's final quote: new ticket + fare breakdown + how long the price is locked.
 // REAL API: GET /v1/reschedule-requests/:sessionId/quote
 // -> { expiresAt (ms), ticket, rules, ledger, desk }
-export async function getReissueQuote(sessionId) {
+export async function getReissueQuote(sessionId, session) {
   await wait(500)
-  const { lockSeconds, ...quote } = MOCK_QUOTE
+  // Replace this mock calculator with the backend's quote endpoint when available.
+  const { lockSeconds, ...quote } = buildMockQuote(session?.selectedFlight, session?.selectedDate)
   return { ...quote, expiresAt: Date.now() + lockSeconds * 1000 }
 }
 
 // Step 3 - "Confirm Reschedule & Pay".
 // REAL API: POST /v1/reschedule-requests/:sessionId/confirm
 // -> { bookingId }   (if a payment is needed the backend can also send a payment link to open instead)
-export async function confirmReschedule({ bookingId, sessionId }) {
+export async function confirmReschedule({ bookingId, sessionId, paymentAmount }) {
   await wait(800)
-  return { bookingId }
+  return { bookingId, sessionId, paymentAmount, status: 'confirmed' }
 }

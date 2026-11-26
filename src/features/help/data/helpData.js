@@ -1,6 +1,6 @@
 // Demo content of the Help & Support page (texts copied from Figma).
 // When the backend is ready, helpService.js will load the same shapes from the API and this file can be deleted.
-// "icon" is just a name; helpIcons.js turns it into a picture. That way the backend can send plain JSON.
+// "icon" is just a name; the topic/contact components map it to an icon, keeping the data JSON-friendly.
 
 // "Popular Help Topics": first 5 show in the left card, next 5 in the right card.
 export const TOPICS = [

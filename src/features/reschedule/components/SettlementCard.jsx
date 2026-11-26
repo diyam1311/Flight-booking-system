@@ -18,8 +18,8 @@ export default function SettlementCard({ ledger, onConfirm, onReturnToChat, busy
       <div className="flex flex-col gap-4 p-4 sm:p-6">
         {/* credit + new fare = difference */}
         <dl className="flex flex-col gap-2 rounded-xl bg-[#F4F7FD] p-4 text-sm">
-          <div className="flex justify-between gap-3 text-slate-500"><dt>Original Ticket Credit (3 Jul)</dt><dd className="font-semibold text-slate-900">{rupees(ledger.credit)}</dd></div>
-          <div className="flex justify-between gap-3 text-slate-500"><dt>New Flight Base Fare (6E-5188)</dt><dd className="font-semibold text-slate-900">{rupees(ledger.baseFare)}</dd></div>
+          <div className="flex justify-between gap-3 text-slate-500"><dt>{ledger.creditLabel || 'Original Ticket Credit'}</dt><dd className="font-semibold text-slate-900">{rupees(ledger.credit)}</dd></div>
+          <div className="flex justify-between gap-3 text-slate-500"><dt>{ledger.baseFareLabel || 'New Flight Base Fare'}</dt><dd className="font-semibold text-slate-900">{rupees(ledger.baseFare)}</dd></div>
           <div className="flex justify-between gap-3 font-bold"><dt>Carrier Fare Difference</dt><dd>{rupees(ledger.difference, true)}</dd></div>
         </dl>
 

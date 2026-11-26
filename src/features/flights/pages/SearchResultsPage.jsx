@@ -6,7 +6,16 @@ import SearchSummaryBar from '../components/SearchSummaryBar'
 import FilterSidebar from '../components/FilterSidebar'
 import FlightCard from '../components/FlightCard'
 import useFlightFilters from '../hooks/useFlightFilters'
-import { SORT_OPTIONS, sortFlights } from '../utils/sortFlights'
+
+const SORT_OPTIONS = ['Recommended', 'Price: Low to High', 'Price: High to Low', 'Earliest Departure']
+
+function sortFlights(flights, sortBy) {
+  const list = [...flights]
+  if (sortBy === 'Price: Low to High') list.sort((a, b) => a.price - b.price)
+  if (sortBy === 'Price: High to Low') list.sort((a, b) => b.price - a.price)
+  if (sortBy === 'Earliest Departure') list.sort((a, b) => a.depTime.localeCompare(b.depTime))
+  return list
+}
 
 // "Your Search Results" page (Figma frame 1440 wide). Navbar + Footer come from MainLayout.
 // The search details and flights arrive from the loading page through the router state.

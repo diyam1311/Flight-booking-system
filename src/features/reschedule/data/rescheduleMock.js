@@ -37,21 +37,21 @@ export const MOCK_FLIGHTS = [
     tags: ['High Airline Seat Availability', 'Same Baggage Tier (15kg)'],
     depTime: '09:30', arrTime: '11:40', duration: '2h 10m', stops: 'NON-STOP',
     from: { ...DELHI, airport: 'Indira Gandhi Intl, T2' }, to: { ...MUMBAI, airport: 'Chhatrapati Shivaji Maharaj, T1' },
-    fare: { title: 'Fare: Requires Carrier Verification', note: 'IndiGo revenue desk approval needed for fare delta & waiver', action: 'Select & Chat With Us' },
+    baseFare: 6292, fare: { title: 'Fare: Requires Carrier Verification', note: 'IndiGo revenue desk approval needed for fare delta & waiver', action: 'Select & Chat With Us' },
   },
   {
     id: '6E-805', airline: 'IndiGo', flightNo: '6E-805', aircraft: 'Airbus A321neo', slot: 'Afternoon Slot',
     tags: ['Complimentary Hot Meal Transfer Eligible', 'Check-in 20kg Included'],
     depTime: '14:15', arrTime: '16:30', duration: '2h 15m', stops: 'NON-STOP',
     from: { ...DELHI, airport: 'Indira Gandhi Intl, T3' }, to: { ...MUMBAI, airport: 'Chhatrapati Shivaji Maharaj, T2' },
-    fare: { title: 'Fare: Pending Carrier Quote', note: 'IndiGo central GDS reissue queue confirmation needed', action: 'Chat With Us to Check Fare' },
+    baseFare: 6792, fare: { title: 'Fare: Pending Carrier Quote', note: 'IndiGo central GDS reissue queue confirmation needed', action: 'Chat With Us to Check Fare' },
   },
   {
     id: '6E-2401', airline: 'IndiGo', flightNo: '6E-2401', aircraft: 'Airbus A320neo', slot: 'Evening Slot',
     tags: ['Flex Modification Bucket', 'Express Check-in Eligible'],
     depTime: '19:45', arrTime: '22:05', duration: '2h 20m', stops: 'NON-STOP',
     from: { ...DELHI, airport: 'Indira Gandhi Intl, T2' }, to: { ...MUMBAI, airport: 'Chhatrapati Shivaji Maharaj, T1' },
-    fare: { title: 'Fare: Requires Carrier Verification', note: 'IndiGo revenue desk approval needed for fare difference quote', action: 'Select & Chat With Us' },
+    baseFare: 7492, fare: { title: 'Fare: Requires Carrier Verification', note: 'IndiGo revenue desk approval needed for fare difference quote', action: 'Select & Chat With Us' },
   },
 ]
 
@@ -60,6 +60,8 @@ export const MOCK_FLIGHTS = [
 // A text between ** ** is shown bold (see components/chat/RichText.jsx).
 export const buildMockSession = (flight, date) => ({
   id: 'IR-99201', // the reissue request number
+  selectedFlight: flight,
+  selectedDate: date,
   agent: { name: 'Rajesh Kumar', initials: 'RK', badge: 'DGCA DL-4819', role: 'Agent' },
   banner: 'Encrypted Session Initiated · Direct Carrier Link with IndiGo CRS',
   // the strip above the chat
@@ -142,4 +144,36 @@ export const MOCK_QUOTE = {
     dispatch: { text: 'Your revised 13-digit E-Ticket and barcode will be delivered to kritikasharma@gmail.com and WhatsApp (+91 98765 43210) within 60 seconds upon payment confirmation.', note: '100% Protected under DGCA Passenger Rights Charter' },
   },
   desk: { reference: 'IND-REV-84920', phone: '+91 98765 43210' },
+}
+
+// Demo quote calculator. Keep this behind getReissueQuote() so a backend quote can replace it.
+export function buildMockQuote(flight, date) {
+  const quote = structuredClone(MOCK_QUOTE)
+  const dateLabel = (date?.long || 'Sat, 04 Jul 2026').toUpperCase()
+  const baseFare = Number(flight?.baseFare ?? quote.ledger.baseFare)
+  const credit = quote.ledger.credit
+  const difference = Math.max(0, baseFare - credit)
+  const gst = Math.round(difference * 0.18)
+  quote.ticket = {
+    ...quote.ticket,
+    airline: flight?.airline ?? quote.ticket.airline,
+    flightNo: flight?.flightNo ?? quote.ticket.flightNo,
+    aircraft: `${flight?.aircraft ?? 'Airbus A321neo'} · Aircraft Equipped with Slimline Seating`,
+    from: { ...quote.ticket.from, time: flight?.depTime ?? quote.ticket.from.time, city: `${flight?.from?.city ?? 'New Delhi'} (${flight?.from?.code ?? 'DEL'})`, terminal: flight?.from?.airport ?? quote.ticket.from.terminal, date: dateLabel },
+    to: { ...quote.ticket.to, time: flight?.arrTime ?? quote.ticket.to.time, city: `${flight?.to?.city ?? 'Mumbai'} (${flight?.to?.code ?? 'BOM'})`, terminal: flight?.to?.airport ?? quote.ticket.to.terminal, date: dateLabel },
+    duration: `${flight?.duration ?? '2h 10m'} ${flight?.stops?.toLowerCase() ?? 'non-stop'}`,
+    path: `${flight?.from?.code ?? 'DEL'} to ${flight?.to?.code ?? 'BOM'} · Direct Sector Path`,
+  }
+  quote.ledger = {
+    ...quote.ledger,
+    creditLabel: 'Original Ticket Credit',
+    baseFareLabel: `New Flight Base Fare (${flight?.flightNo ?? quote.ticket.flightNo})`,
+    baseFare,
+    difference,
+    total: difference + gst,
+    rows: quote.ledger.rows.map((row) => row.label.startsWith('Goods & Services Tax')
+      ? { ...row, note: `Applicable on ₹${difference} carrier delta`, amount: gst }
+      : row),
+  }
+  return quote
 }

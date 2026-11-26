@@ -73,3 +73,9 @@ export async function findBooking(user, reference, lastName) {
 export async function getBooking(user, bookingId) {
   return readBookings(user).find((b) => b.id === bookingId) ?? null
 }
+
+// Remove a fully cancelled saved booking so it cannot appear in Recents or booking lookup.
+export async function removeBooking(user, bookingId) {
+  const bookings = readBookings(user)
+  localStorage.setItem(storageKey(user), JSON.stringify(bookings.filter((booking) => booking.id !== bookingId)))
+}

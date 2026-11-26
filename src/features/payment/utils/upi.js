@@ -1,10 +1,8 @@
-// A UPI payment link. Any UPI app (Google Pay, PhonePe, Paytm, BHIM) can scan it and opens the payment with the amount filled in.
-
+// A UPI link for Google Pay, PhonePe, Paytm, BHIM, and other UPI apps.
 const MERCHANT_UPI_ID = 'mobiyantra@upi' // TODO: the real merchant UPI ID comes from the backend
 const MERCHANT_NAME = 'Mobiyantra'
 
-// buildUpiLink({ amount: 3890, note: 'Flight DEL-BOM' }) -> "upi://pay?pa=...&am=3890.00&..."
-// Every call gets a new transaction reference (tr), so every link - and every QR code - is different.
+// Every call gets a new transaction reference, so each QR code has a unique link.
 export function buildUpiLink({ amount, note }) {
   const reference = `MOB${Math.floor(Math.random() * 1e10)}`.padEnd(13, '0')
   const params = {

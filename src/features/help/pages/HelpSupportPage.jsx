@@ -4,7 +4,7 @@ import HelpSearch from '../components/HelpSearch'
 import SectionTitle from '../components/SectionTitle'
 import TopicCard from '../components/TopicCard'
 import ManageBookingBanner from '../components/ManageBookingBanner'
-import ContactSection from '../components/ContactSection'
+import ContactCard from '../components/ContactCard'
 import FaqCard from '../components/FaqCard'
 import { useHelpContent } from '../hooks/useHelpContent'
 
@@ -66,7 +66,13 @@ export default function HelpSupportPage() {
         {/* Figma: banner 595.78 wide, 36 gap, contact block 608 wide */}
         <div className="mt-[38px] flex flex-col gap-9 xl:flex-row lg:items-start">
           <ManageBookingBanner />
-          <ContactSection contacts={contacts} />
+          <section className="lg:-mt-[5px] lg:w-[608px]">
+            <h2 className="text-[20px] font-semibold leading-6">Still need help?</h2>
+            <p className="mt-2 text-xs leading-[15px] text-slate-600">Our support team is here for you. Choose your preferred way to get in touch.</p>
+            <div className="mt-[21px] flex flex-wrap gap-4">
+              {contacts.map((contact) => <ContactCard key={contact.id} contact={contact} />)}
+            </div>
+          </section>
         </div>
 
         {shownFaqs.length > 0 && (

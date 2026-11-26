@@ -1,4 +1,6 @@
-import { CONTACT_ICONS } from '../data/helpIcons'
+import { MessageSquare, Phone, Mail } from 'lucide-react'
+
+const CONTACT_ICONS = { chat: MessageSquare, call: Phone, email: Mail }
 
 // One "Still need help?" card. Figma: 185.69 x 143.36, radius 20, padding 20.2 / 16.36.
 // Cards with a link (call / email) show a link-button; the chat card shows a normal button.

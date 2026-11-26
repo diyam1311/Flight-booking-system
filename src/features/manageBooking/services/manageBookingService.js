@@ -1,4 +1,5 @@
 import { findBooking as findSavedBooking, getBooking, getBookings } from '@/features/ticket/services/ticketService'
+import { getFullyCancelledBookingIds } from '@/features/cancellation/services/cancellationService'
 import { MOCK_BOOKINGS } from '../data/mockBookings' // demo data: remove with mockBookings.js when the backend is ready
 
 /**
@@ -10,16 +11,17 @@ import { MOCK_BOOKINGS } from '../data/mockBookings' // demo data: remove with m
 
 // -> every booking to show in "Recents", newest first
 export async function getRecentBookings(user) {
-  return [...(await getBookings(user)), ...MOCK_BOOKINGS]
+  const cancelledIds = new Set(getFullyCancelledBookingIds(user))
+  return [...(await getBookings(user)), ...MOCK_BOOKINGS].filter((booking) => !cancelledIds.has(booking.id))
 }
 
 // "Booking reference + last name" form. -> the booking, or null when nothing matches.
 export async function findBooking(user, reference, lastName) {
   const saved = await findSavedBooking(user, reference, lastName)
-  if (saved) return saved
+  if (saved && !getFullyCancelledBookingIds(user).includes(saved.id)) return saved
   const ref = reference.trim().toLowerCase()
   const last = lastName.trim().toLowerCase()
-  return MOCK_BOOKINGS.find((b) => b.id.toLowerCase() === ref && b.passengers.some((p) => p.last.toLowerCase() === last)) ?? null
+  return MOCK_BOOKINGS.find((b) => !getFullyCancelledBookingIds(user).includes(b.id) && b.id.toLowerCase() === ref && b.passengers.some((p) => p.last.toLowerCase() === last)) ?? null
 }
 
 // One booking by its ID (the "My Booking" page). -> the booking, or null

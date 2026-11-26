@@ -53,7 +53,7 @@ export function useRescheduleFlow(bookingId) {
   })
 
   const viewFinalQuote = () => run(async () => {
-    setQuote(await getReissueQuote(session.id))
+    setQuote(await getReissueQuote(session.id, session))
     setStep(3)
   })
 

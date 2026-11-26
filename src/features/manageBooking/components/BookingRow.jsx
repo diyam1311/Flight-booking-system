@@ -1,10 +1,22 @@
 import { Plane } from 'lucide-react'
 import { findCity } from '@/features/search/data/searchOptions'
 import { ticketDate } from '@/features/ticket/utils/ticketView'
-import { getBookingStatus } from '../utils/bookingStatus'
-import { STATUS_STYLES } from '../data/manageBookingData'
 import CityThumb from './CityThumb'
 import { passengerText, time12 } from '../utils/bookingText'
+
+const DAY = 24 * 60 * 60 * 1000
+const STATUS_STYLES = {
+  Confirmed: 'border-emerald-200 bg-emerald-50 text-emerald-600',
+  Upcoming: 'border-amber-200 bg-amber-50 text-amber-600',
+  Completed: 'border-slate-200 bg-slate-100 text-slate-500',
+}
+
+function getBookingStatus({ search, flight, status }) {
+  if (status) return status
+  const departsIn = new Date(`${search.depart}T${flight.depTime}:00`) - new Date()
+  if (departsIn < 0) return 'Completed'
+  return departsIn <= 7 * DAY ? 'Confirmed' : 'Upcoming'
+}
 
 // One booking of the Recents list (Figma: 917 x 68.5, radius 12, border 0.74px, padding 12).
 //   booking : a saved booking (see ticketService)     onOpen(booking) : "View / Manage"

@@ -1,5 +1,13 @@
 import { Link } from 'react-router-dom'
-import { MANAGE_MENU } from '../data/manageBookingData'
+import { cancelPath, helpSupport, reschedulePath } from '@/config/paths'
+import { Calendar, CalendarX2, Headphones, Plane } from 'lucide-react'
+
+const MANAGE_MENU = [
+  { label: 'My Booking', icon: Plane, active: true },
+  { label: 'Help & Support', icon: Headphones, path: helpSupport },
+  { label: 'Cancellation', icon: CalendarX2, path: cancelPath, requiresBooking: true },
+  { label: 'Reschedule', icon: Calendar, path: reschedulePath, requiresBooking: true },
+]
 
 // Left menu card (Figma: 298 x 339, radius 10, border 1px, padding 16, gap 11; every item 247 x 68.5, radius 16).
 //   bookingId : the open booking (My Booking page). Items with a `path` (like Reschedule) open that booking's page.

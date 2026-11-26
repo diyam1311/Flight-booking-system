@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { ArrowRight } from 'lucide-react'
-import { RECENT_COUNT } from '../data/manageBookingData'
 import BookingRow from './BookingRow'
+
+const RECENT_COUNT = 4
 
 // "Recents" (Figma: 917 x 423.7, gap 14.35 between the heading and the list; list gap 16).
 //   bookings : newest first        onOpen(booking) : "View / Manage" of a row

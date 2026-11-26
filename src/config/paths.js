@@ -13,6 +13,7 @@ export const PATHS = {
   bookingDetails: '/manage-booking/:bookingId', // "My Booking": everything about one booking; use bookingDetailsPath(id)
   help: '/help',                  // "Support" link of the navbar: Help & Support page
   eTicket: '/e-ticket/:bookingId', // the e-ticket after payment; use eTicketPath(id) to open it
+  cancelBooking: '/cancel/:bookingId', // "Cancel Booking" of one booking; use cancelPath(id)
   reschedule: '/reschedule/:bookingId', // "Reschedule / Change Flight" of one booking; use reschedulePath(id)
 }
 
@@ -21,6 +22,9 @@ export const eTicketPath = (bookingId) => `/e-ticket/${bookingId}`
 
 // bookingDetailsPath('ID-3486') -> "/manage-booking/ID-3486"
 export const bookingDetailsPath = (bookingId) => `/manage-booking/${bookingId}`
+
+// cancelPath('ID-3486') -> "/cancel/ID-3486"
+export const cancelPath = (bookingId) => `/cancel/${bookingId}`
 
 // reschedulePath('ID-3486') -> "/reschedule/ID-3486"
 export const reschedulePath = (bookingId) => `/reschedule/${bookingId}`

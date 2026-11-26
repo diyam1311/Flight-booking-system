@@ -1,5 +1,20 @@
-import { ChevronDown, ChevronUp } from 'lucide-react'
-import { TOPIC_ICONS } from '../data/helpIcons'
+import {
+  Banknote, CalendarCheck, CalendarDays, ChevronDown, ChevronUp, Clock,
+  FileText, HandCoins, Luggage, PlaneTakeoff, TicketCheck, UserPen,
+} from 'lucide-react'
+
+const TOPIC_ICONS = {
+  booking: CalendarCheck,
+  passenger: UserPen,
+  payment: Banknote,
+  refund: HandCoins,
+  baggage: Luggage,
+  reschedule: CalendarDays,
+  cancellation: PlaneTakeoff,
+  checkin: TicketCheck,
+  arrival: Clock,
+  documents: FileText,
+}
 
 // One row of "Popular Help Topics": icon, title, small summary and an arrow.
 // Clicking it opens the answer.
